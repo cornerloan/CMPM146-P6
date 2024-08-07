@@ -113,19 +113,14 @@ class UserWebcamPlayer:
         import matplotlib.pyplot as plt
         plt.imshow(img, cmap='gray', vmin=0, vmax=255)
         plt.show()"""
+        img_resized = cv2.resize(img, dsize=image_size)
+        img_resized = cv2.merge((img_resized, img_resized, img_resized))
 
-        img_resized = cv2.resize(img, image_size)
-        
-        img_resized = img_resized / 255.0
+        input_img = np.expand_dims(img_resized, axis=-1)
+        input_img = np.expand_dims(input_img, axis=0)
 
-        img_resized = np.reshape(img_resized, (1, image_size[0], image_size[0], 1))
-
-        prediction = model.predict(img_resized)
-
+        prediction = model.predict(input_img)
         emotion = np.argmax(prediction)
-
-        # Print the detected emotion for debugging
-        print(f"Detected emotion: {emotion}")
 
         return int(emotion)
     
