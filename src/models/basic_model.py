@@ -11,20 +11,27 @@ class BasicModel(Model):
         [   
             layers.Input(shape=input_shape),
             layers.Rescaling(1./150),
+
             layers.Conv2D(16, (3, 3), activation='relu'),
             layers.MaxPooling2D((2, 2)),
+            layers.Dropout(0.1),
+
             layers.Conv2D(32, (3, 3), activation='relu'),
             layers.MaxPooling2D((2, 2)),
+            layers.Dropout(0.2),
+
             layers.Conv2D(64, (3, 3), activation='relu'),
             layers.MaxPooling2D((2, 2)),
+            layers.Dropout(0.3),
+
             layers.Conv2D(128, (3, 3), activation='relu'),
             layers.MaxPooling2D((2, 2)),
+            #layers.Dropout(0.4),
+
             layers.Flatten(),
             layers.Dense(categories_count, activation='softmax'),
-
         ])
 
-    
     def _compile_model(self):
         # Your code goes here
         # you have to compile the keras model, similar to the example in the writeup
