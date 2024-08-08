@@ -26,7 +26,6 @@ class BasicModel(Model):
 
             layers.Conv2D(128, (3, 3), activation='relu'),
             layers.MaxPooling2D((2, 2)),
-            #layers.Dropout(0.4),
 
             layers.Flatten(),
             layers.Dense(categories_count, activation='softmax'),
